@@ -2,9 +2,9 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import { Ng5SliderModule } from 'ng5-slider';
 
-import {MisPaintEditorToolbarComponent} from './components/paint-editor-toolbar/paint-editor-toolbar.component';
-import {MisPaintEditorComponent} from './components/paint-editor/paint-editor.component';
-import {MisSliderComponent} from './components/slider/slider.component';
+import {PaintEditorToolbarComponent} from './components/paint-editor-toolbar/paint-editor-toolbar.component';
+import {PaintEditorComponent} from './components/paint-editor/paint-editor.component';
+import {SliderComponent} from './components/slider/slider.component';
 
 @NgModule({
     imports: [
@@ -12,12 +12,12 @@ import {MisSliderComponent} from './components/slider/slider.component';
         Ng5SliderModule
     ],
     declarations: [
-        MisPaintEditorComponent,
-        MisPaintEditorToolbarComponent,
-        MisSliderComponent
+        PaintEditorComponent,
+        PaintEditorToolbarComponent,
+        SliderComponent
     ],
     exports: [
-        MisPaintEditorComponent
+        PaintEditorComponent
     ],
     entryComponents: []
 })

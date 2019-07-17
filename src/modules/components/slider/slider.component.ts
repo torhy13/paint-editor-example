@@ -9,7 +9,7 @@ import {ChangeContext} from 'ng5-slider/change-context';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MisSliderComponent {
+export class SliderComponent {
     @Input() initialValue: number;
     @Input() options: Options;
     @Output() valueChangeEnd = new EventEmitter<number>();

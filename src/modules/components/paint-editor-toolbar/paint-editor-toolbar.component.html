@@ -5,10 +5,7 @@
             [ngClass]="btn.class"
             [class.active]="btn.value === defaultSettings.tool"
             title="{{btn.title}}">
-        <!--<mis-icon [iconType]="btn.iconType"
-                  [iconSize]="btn.iconSize"></mis-icon>-->
-      <!--todo добавить иконки-->
-      <svg style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;">
+      <svg>
         <use [attr.xlink:href]="'assets/symbol-defs.svg#'+ btn.iconType"></use>
       </svg>
     </button>

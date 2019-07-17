@@ -31,12 +31,12 @@ const initialStep = -1;
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MisPaintEditorComponent),
+      useExisting: forwardRef(() => PaintEditorComponent),
       multi: true
     }
   ]
 })
-export class MisPaintEditorComponent implements AfterViewInit, OnDestroy {
+export class PaintEditorComponent implements AfterViewInit, OnDestroy {
   @Input() id: string;
   @ViewChild('editorWrapper', {static: false}) editorWrapper: ElementRef;
   @ViewChild('textarea', {static: false}) textarea: ElementRef;
