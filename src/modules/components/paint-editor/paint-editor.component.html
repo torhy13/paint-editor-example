@@ -1,0 +1,12 @@
+<div class="editor-wrapper" #editorWrapper>
+    <div id="{{id}}"></div>
+    <span #textareaWrapper class="text-input">
+        <div contenteditable="true" class="text-input__field" #textarea></div>
+    </span>
+</div>
+<app-paint-editor-toolbar
+
+    [defaultSettings]="defaultToolbarSettings"
+    (toolSelect)="onToolSelect($event)"
+    (colorSelect)="onColorSelect($event)"
+    (sizeChange)="onSizeSelect($event)"></app-paint-editor-toolbar>

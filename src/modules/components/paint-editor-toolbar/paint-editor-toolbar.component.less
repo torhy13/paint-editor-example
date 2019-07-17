@@ -1,0 +1,165 @@
+@black: #000;
+@red: #ED2C34;
+@orange: #F99829;
+@green: #70D424;
+@azure: #2D9ED6;
+@blue: #355FD2;
+@purple: #9C34CA;
+@active-bg: rgba(83, 143, 255, 0.3);
+@active-border: #538FFF;
+
+.separator() {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(83, 143, 255, 0.3);
+}
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 41px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: rgba(83, 143, 255, 0.1);
+  min-width: 510px;
+}
+
+.toolbar-buttons {
+  &__btn {
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+    position: relative;
+    z-index: 10;
+    border-radius: 3px;
+    border: none;
+    background-color: transparent;
+
+    &:last-child {
+      margin-left: 18px;
+      &:before {
+        .separator();
+        left: -10px;
+    }
+    }
+
+    svg {
+      position: relative;
+      z-index: -1;
+      vertical-align: middle;
+    }
+
+    &-undo {
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+
+    &.active {
+      background-color: @active-bg;
+    }
+  }
+
+  &__undo {
+    user-select: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+.toolbar-right-wrapper {
+  display: flex;
+}
+
+.toolbar-colorpicker {
+  margin-right: 25px;
+
+  &__btn {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    border-radius: 100%;
+    margin-right: 5px;
+
+    &_black {
+      background-color: @black;
+    }
+
+    &_red {
+      background-color: @red;
+    }
+
+    &_orange {
+      background-color: @orange;
+    }
+
+    &_green {
+      background-color: @green;
+    }
+
+    &_azure {
+      background-color: @azure;
+    }
+
+    &_blue {
+      background-color: @blue;
+    }
+
+    &_purple {
+      background-color: @purple;
+    }
+
+    &.active {
+      &:before {
+        content: '';
+        display: inline-block;
+        border: 2px solid @active-border;
+        position: absolute;
+        left: -4px;
+        top: -4px;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+      }
+    }
+  }
+}
+
+app-slider {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.slider-wrapper {
+
+  &:before,
+  &:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    background: rgba(83, 143, 255, 0.3);
+    border-radius: 100%;
+  }
+
+  &:before {
+    width: 4px;
+    height: 4px;
+    margin-right: 5px;
+  }
+
+  &:after {
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+  }
+}

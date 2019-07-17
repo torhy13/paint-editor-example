@@ -1,0 +1,44 @@
+@slider-width: 95px;
+
+app-slider {
+  display: block;
+  width: @slider-width;
+
+  .ng5-slider {
+    margin: 0;
+
+    [ng5sliderselbarelem] {
+      visibility: visible !important;
+
+      .ng5-slider-selection {
+        background: #538FFF;
+      }
+    }
+
+    .ng5-slider-bar {
+      background: rgba(83, 143, 255, 0.3)
+    }
+
+    .ng5-slider-floor,
+    .ng5-slider-ceil,
+    .ng5-slider-model-value {
+      display: none;
+    }
+
+    .ng5-slider-pointer {
+      width: 16px;
+      height: 16px;
+      top: -6px;
+      background-color: #fff;
+      outline: none;
+      border: 1px solid #538FFF;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+
+

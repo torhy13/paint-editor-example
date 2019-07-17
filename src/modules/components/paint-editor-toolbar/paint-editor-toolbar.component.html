@@ -1,0 +1,28 @@
+<div class="toolbar-buttons" (click)="onButtonGroupClick($event)">
+    <button *ngFor="let btn of toolbarButtons.toolButtons"
+            (click)="onToolSelect(btn.value)"
+            class="toolbar-buttons__btn"
+            [ngClass]="btn.class"
+            [class.active]="btn.value === defaultSettings.tool"
+            title="{{btn.title}}">
+        <!--<mis-icon [iconType]="btn.iconType"
+                  [iconSize]="btn.iconSize"></mis-icon>-->
+      <!--todo добавить иконки-->
+      <svg style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;">
+        <use [attr.xlink:href]="'assets/symbol-defs.svg#'+ btn.iconType"></use>
+      </svg>
+    </button>
+</div>
+<div class="toolbar-right-wrapper">
+    <div class="toolbar-colorpicker" (click)="onButtonGroupClick($event)">
+        <button *ngFor="let colorBtn of toolbarButtons.colorPickerButtons"
+                (click)="onColorSelect(colorBtn.value)"
+                class="toolbar-colorpicker__btn"
+                [class.active]="colorBtn.value === defaultSettings.color"
+                [ngClass]="colorBtn.class">
+        </button>
+    </div>
+    <div class="slider-wrapper">
+        <app-slider [initialValue]="defaultSettings.lineWidth" [options]="sliderOpts" (valueChangeEnd)="onSizeChange($event)"></app-slider>
+    </div>
+</div>

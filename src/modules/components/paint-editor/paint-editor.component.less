@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.editor-wrapper {
+  position: relative;
+  outline: 1px solid #C3C5CD;
+  overflow: hidden;
+}
+
+.text-input {
+  display: none;
+  position: absolute;
+  right: auto;
+  bottom: auto;
+  cursor: text;
+
+  &__field {
+    background-color: transparent;
+    border: 1px dashed;
+    width: auto;
+    display: block;
+    min-width: 15px;
+    padding: 0 1px;
+    overflow-x: hidden;
+    word-wrap: normal;
+    overflow-y: hidden;
+    box-sizing: content-box;
+    line-height: normal;
+    outline: none;
+  }
+}
