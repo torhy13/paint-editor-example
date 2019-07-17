@@ -1,28 +1,26 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {expect} from 'chai';
 import {Ng5SliderModule} from 'ng5-slider';
 
-import {MisIconModule} from '../../../../ui-kit/components';
-import {MisPaintEditorToolbarComponent} from '../paint-editor-toolbar/paint-editor-toolbar.component';
-import {MisSliderComponent} from '../slider/slider.component';
+import {PaintEditorToolbarComponent} from '../paint-editor-toolbar/paint-editor-toolbar.component';
+import {SliderComponent} from '../slider/slider.component';
 
-import {MisPaintEditorComponent} from './paint-editor.component';
+import {PaintEditorComponent} from './paint-editor.component';
 
-describe.skip('PaintEditorComponent', () => {
-    let component: MisPaintEditorComponent;
-    let fixture: ComponentFixture<MisPaintEditorComponent>;
+describe('PaintEditorComponent', () => {
+    let component: PaintEditorComponent;
+    let fixture: ComponentFixture<PaintEditorComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MisIconModule, Ng5SliderModule, BrowserAnimationsModule],
-            declarations: [MisPaintEditorComponent, MisPaintEditorToolbarComponent, MisSliderComponent]
+            imports: [Ng5SliderModule, BrowserAnimationsModule],
+            declarations: [PaintEditorComponent, PaintEditorToolbarComponent, SliderComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MisPaintEditorComponent);
+        fixture = TestBed.createComponent(PaintEditorComponent);
         component = fixture.componentInstance;
         component.id = '1';
         component.textarea = {nativeElement: {
@@ -33,6 +31,6 @@ describe.skip('PaintEditorComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).to.be.not.equal(null);
+        expect(component).toBeDefined();
     });
 });

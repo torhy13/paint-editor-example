@@ -1,29 +1,28 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {expect} from 'chai';
 
-import {MisPaintEditorToolbarComponent} from './paint-editor-toolbar.component';
+import {PaintEditorToolbarComponent} from './paint-editor-toolbar.component';
 
-describe.skip('PaintEditorToolbarComponent', () => {
-    let component: MisPaintEditorToolbarComponent;
-    let fixture: ComponentFixture<MisPaintEditorToolbarComponent>;
+describe('PaintEditorToolbarComponent', () => {
+    let component: PaintEditorToolbarComponent;
+    let fixture: ComponentFixture<PaintEditorToolbarComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MisPaintEditorToolbarComponent]
+            declarations: [PaintEditorToolbarComponent]
         })
-            .overrideComponent(MisPaintEditorToolbarComponent, {
+            .overrideComponent(PaintEditorToolbarComponent, {
                 set: {template: `<p></p>`}
             })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MisPaintEditorToolbarComponent);
+        fixture = TestBed.createComponent(PaintEditorToolbarComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should create', () => {
-        expect(component).to.be.not.equal(null);
+        expect(component).toBeDefined();
     });
 });

@@ -10,7 +10,7 @@ import {toolbarButtons} from './toolbarButtons';
     styleUrls: ['./paint-editor-toolbar.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MisPaintEditorToolbarComponent {
+export class PaintEditorToolbarComponent {
     @Input() defaultSettings: DefaultSelectedTools;
     @Output() toolSelect = new EventEmitter<any>();
     @Output() colorSelect = new EventEmitter<any>();

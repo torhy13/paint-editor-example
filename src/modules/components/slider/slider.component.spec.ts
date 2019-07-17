@@ -1,29 +1,28 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {expect} from 'chai';
 
-import {MisSliderComponent} from './slider.component';
+import {SliderComponent} from './slider.component';
 
 describe('SliderComponent', () => {
-    let component: MisSliderComponent;
-    let fixture: ComponentFixture<MisSliderComponent>;
+    let component: SliderComponent;
+    let fixture: ComponentFixture<SliderComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MisSliderComponent]
+            declarations: [SliderComponent]
         })
-            .overrideComponent(MisSliderComponent, {
+            .overrideComponent(SliderComponent, {
                 set: {template: `<p></p>`}
             })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MisSliderComponent);
+        fixture = TestBed.createComponent(SliderComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should create', () => {
-        expect(component).to.be.not.equal(null);
+        expect(component).toBeDefined();
     });
 });
