@@ -5,6 +5,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 import {PaintEditorToolbarComponent} from './components/paint-editor-toolbar/paint-editor-toolbar.component';
 import {PaintEditorComponent} from './components/paint-editor/paint-editor.component';
 import {SliderComponent} from './components/slider/slider.component';
+import { FileControlButtonsComponent } from './components/file-control-buttons/file-control-buttons.component';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {SliderComponent} from './components/slider/slider.component';
     declarations: [
         PaintEditorComponent,
         PaintEditorToolbarComponent,
-        SliderComponent
+        SliderComponent,
+        FileControlButtonsComponent
     ],
     exports: [
         PaintEditorComponent

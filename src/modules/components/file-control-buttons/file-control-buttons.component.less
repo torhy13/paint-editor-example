@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.file-ctrl-btn {
+
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
