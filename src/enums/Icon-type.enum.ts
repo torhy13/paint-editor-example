@@ -5,4 +5,5 @@ export enum IconType {
   icon_checkbox_unchecked = 'icon-checkbox-unchecked',
   icon_radio_unchecked = 'icon-radio-unchecked',
   icon_text_color = 'icon-text-color',
+  icon_unpload = 'icon-upload'
 }

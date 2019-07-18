@@ -34,7 +34,18 @@
 }
 
 .toolbar-buttons {
+  svg {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    z-index: -1;
+  }
   &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     margin-right: 2px;
@@ -43,24 +54,19 @@
     border-radius: 3px;
     border: none;
     background-color: transparent;
+    cursor: pointer;
 
     &:last-child {
       margin-left: 18px;
+
       &:before {
         .separator();
         left: -10px;
-    }
-    }
-
-    svg {
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      vertical-align: middle;
-      z-index: -1;
+      }
     }
 
-    &-undo {
+    &-undo,
+    &-upload {
       &:active {
         transform: translateY(1px);
       }

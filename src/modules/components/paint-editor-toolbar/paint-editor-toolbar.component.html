@@ -1,25 +1,42 @@
 <div class="toolbar-buttons" (click)="onButtonGroupClick($event)">
-    <button *ngFor="let btn of toolbarButtons.toolButtons"
-            (click)="onToolSelect(btn.value)"
-            class="toolbar-buttons__btn"
-            [ngClass]="btn.class"
-            [class.active]="btn.value === defaultSettings.tool"
-            title="{{btn.title}}">
+  <ng-container *ngFor="let btn of toolbarButtons.toolButtons">
+    <label *ngIf="btn.value === toolTypes.upload; else defaultBtn"
+           class="toolbar-buttons__btn"
+           title="{{btn.title}}"
+           [ngClass]="btn.class"
+           for="file">
+      <input type="file" id="file" style="display: none" (change)="onFileSelect($event)">
       <svg>
         <use [attr.xlink:href]="'assets/symbol-defs.svg#'+ btn.iconType"></use>
       </svg>
-    </button>
+    </label>
+    <ng-template #defaultBtn>
+      <button (click)="onToolSelect(btn.value)"
+              type="button"
+              class="toolbar-buttons__btn"
+              [ngClass]="btn.class"
+              [class.active]="btn.value === defaultSettings.tool"
+              title="{{btn.title}}">
+        <svg>
+          <use [attr.xlink:href]="'assets/symbol-defs.svg#'+ btn.iconType"></use>
+        </svg>
+      </button>
+    </ng-template>
+
+  </ng-container>
+
 </div>
 <div class="toolbar-right-wrapper">
-    <div class="toolbar-colorpicker" (click)="onButtonGroupClick($event)">
-        <button *ngFor="let colorBtn of toolbarButtons.colorPickerButtons"
-                (click)="onColorSelect(colorBtn.value)"
-                class="toolbar-colorpicker__btn"
-                [class.active]="colorBtn.value === defaultSettings.color"
-                [ngClass]="colorBtn.class">
-        </button>
-    </div>
-    <div class="slider-wrapper">
-        <app-slider [initialValue]="defaultSettings.lineWidth" [options]="sliderOpts" (valueChangeEnd)="onSizeChange($event)"></app-slider>
-    </div>
+  <div class="toolbar-colorpicker" (click)="onButtonGroupClick($event)">
+    <button *ngFor="let colorBtn of toolbarButtons.colorPickerButtons"
+            (click)="onColorSelect(colorBtn.value)"
+            class="toolbar-colorpicker__btn"
+            [class.active]="colorBtn.value === defaultSettings.color"
+            [ngClass]="colorBtn.class">
+    </button>
+  </div>
+  <div class="slider-wrapper">
+    <app-slider [initialValue]="defaultSettings.lineWidth" [options]="sliderOpts"
+                (valueChangeEnd)="onSizeChange($event)"></app-slider>
+  </div>
 </div>

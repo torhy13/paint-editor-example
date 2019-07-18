@@ -47,6 +47,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     lineWidth: 10
   };
   public isDisabled = false;
+  private konva = Konva as any;
   private canvas: HTMLCanvasElement;
   private canvasSize: { width: number, height: number };
   private context: CanvasRenderingContext2D;
@@ -61,7 +62,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
   private isTextEditing = false;
   private paintingLayer: Layer;
   private serviceLayer: Layer;
-  private imageStringModel: string;
+  private backgroundLayer: Layer;
 
   constructor(private windowDocumentRef: WindowDocumentRef) {
   }
@@ -72,7 +73,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
       height: 500
     };
     this.editorWrapper.nativeElement.style.cursor = this.isDisabled ? 'default' : 'crosshair';
-    const konvaInstance = Konva as any;
+    const konvaInstance = this.konva;
     this.initStage(konvaInstance);
     this.initCanvas();
     this.initLayers(konvaInstance);
@@ -94,13 +95,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     if (!value) {
       return;
     }
-    this.imageStringModel = value;
-    const hasBeenChangedAndCleared = this.stepArray.length && this.step === initialStep;
-    if (this.step >= 0) {
-      this.onChange(value);
-    } else if (hasBeenChangedAndCleared) {
-      this.onChange('');
-    }
+    this.onChange(value);
   }
 
   registerOnChange(fn: any) {
@@ -152,7 +147,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
 
   private initLayers(konva: any) {
     this.paintingLayer = new konva.Layer();
-    const backgroundLayer = new konva.Layer();
+    this.backgroundLayer = new konva.Layer();
     this.serviceLayer = new konva.Layer();
     const serviceCanvas = new konva.Image({
       image: this.windowDocumentRef.nativeDocument.createElement('canvas'),
@@ -165,11 +160,17 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
       image: this.canvas
     });
     this.paintingLayer.add(this.canvasImage);
+    this.stage.add(this.backgroundLayer);
+    this.stage.add(this.serviceLayer);
+    this.stage.add(this.paintingLayer);
+  }
+
+  private initBackgroundImage(base64Img: string) {
     const bgImageObj = new Image();
-    bgImageObj.src = `${imageBase64Type} ${this.imageStringModel}`;
+    bgImageObj.src = base64Img;
     bgImageObj.onload = () => {
       const imageParams = this.getImageParamsOnCanvas(bgImageObj);
-      const bgImg = new konva.Image({
+      const bgImg = new this.konva.Image({
         x: imageParams.x,
         y: imageParams.y,
         image: bgImageObj,
@@ -177,12 +178,8 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
         height: imageParams.height
       });
 
-      backgroundLayer.add(bgImg);
-      backgroundLayer.draw();
-      this.stage.add(backgroundLayer);
-      this.stage.add(this.serviceLayer);
-      this.stage.add(this.paintingLayer);
-
+      this.backgroundLayer.add(bgImg);
+      this.backgroundLayer.draw();
     };
   }
 
