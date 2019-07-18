@@ -5,7 +5,11 @@
            title="{{btn.title}}"
            [ngClass]="btn.class"
            for="file">
-      <input type="file" id="file" style="display: none" (change)="onFileSelect($event)">
+      <input type="file"
+             accept=".jpg, .jpeg, .bmp, .png, .gif"
+             id="file"
+             style="display: none"
+             (change)="onFileSelect($event)">
       <svg>
         <use [attr.xlink:href]="'assets/symbol-defs.svg#'+ btn.iconType"></use>
       </svg>
