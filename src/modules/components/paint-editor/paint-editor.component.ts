@@ -17,8 +17,6 @@ interface ImgParams {
   y: number;
 }
 
-const imageBase64Type = `data:${ImageContentTypes.png};base64,`;
-
 const fontStyle = '20px Arial';
 
 const initialStep = -1;
@@ -89,6 +87,35 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
         this.undo();
         break;
     }
+  }
+
+  public onSaveFile() {
+    const link = this.windowDocumentRef.nativeDocument.createElement('a');
+    link.href = this.stage.toDataURL();
+    link.download = 'fileName';
+    link.click();
+  }
+
+  public onClearFile() {
+    this.backgroundLayer.destroyChildren();
+    this.backgroundLayer.clear();
+  }
+
+  public initBackgroundImage(base64Img: string) {
+    const bgImageObj = new Image();
+    bgImageObj.src = base64Img;
+    bgImageObj.onload = () => {
+      const imageParams = this.getImageParamsOnCanvas(bgImageObj);
+      const bgImg = new this.konva.Image({
+        x: imageParams.x,
+        y: imageParams.y,
+        image: bgImageObj,
+        width: imageParams.width,
+        height: imageParams.height
+      });
+      this.backgroundLayer.add(bgImg);
+      this.backgroundLayer.draw();
+    };
   }
 
   writeValue(value: string) {
@@ -163,24 +190,6 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     this.stage.add(this.backgroundLayer);
     this.stage.add(this.serviceLayer);
     this.stage.add(this.paintingLayer);
-  }
-
-  private initBackgroundImage(base64Img: string) {
-    const bgImageObj = new Image();
-    bgImageObj.src = base64Img;
-    bgImageObj.onload = () => {
-      const imageParams = this.getImageParamsOnCanvas(bgImageObj);
-      const bgImg = new this.konva.Image({
-        x: imageParams.x,
-        y: imageParams.y,
-        image: bgImageObj,
-        width: imageParams.width,
-        height: imageParams.height
-      });
-
-      this.backgroundLayer.add(bgImg);
-      this.backgroundLayer.draw();
-    };
   }
 
   private initEvents() {
@@ -292,7 +301,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   private convertAndWriteValue() {
-    const val = this.stage.toDataURL({mimeType: ImageContentTypes.png}).replace(imageBase64Type, '');
+    const val = this.stage.toDataURL({mimeType: ImageContentTypes.png});
     this.writeValue(val);
   }
 
@@ -398,7 +407,6 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     if (!hasBreaks) {
       ctx.fillText(line, marginLeft, marginTop);
     }
-
   }
 
   ngOnDestroy() {

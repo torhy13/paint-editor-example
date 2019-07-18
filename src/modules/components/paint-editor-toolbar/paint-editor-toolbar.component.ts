@@ -49,8 +49,8 @@ export class PaintEditorToolbarComponent {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        console.log(reader.result);
         this.fileSelect.emit(reader.result);
+        event.target.value = '';
       };
     }
   }

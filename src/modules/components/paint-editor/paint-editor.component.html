@@ -11,4 +11,5 @@
     (fileSelect)="initBackgroundImage($event)"
     (colorSelect)="onColorSelect($event)"
     (sizeChange)="onSizeSelect($event)"></app-paint-editor-toolbar>
-<app-file-control-buttons></app-file-control-buttons>
+<app-file-control-buttons (saveFile)="onSaveFile()"
+                          (clearFile)="onClearFile()"></app-file-control-buttons>

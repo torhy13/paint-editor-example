@@ -1,9 +1,14 @@
-<button class="file-ctrl-btn" title="Сохранить">
+<button class="file-ctrl-btn"
+        type="button"
+        title="Сохранить"
+        (click)="saveFile.emit()">
   <svg>
     <use xlink:href="assets/symbol-defs.svg#icon-download"></use>
   </svg>
 </button>
-<button class="file-ctrl-btn" title="Удалить">
+<button class="file-ctrl-btn"
+        title="Удалить"
+        (click)="clearFile.emit()">
   <svg>
     <use xlink:href="assets/symbol-defs.svg#icon-cross"></use>
   </svg>

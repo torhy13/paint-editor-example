@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-file-control-buttons',
@@ -6,11 +6,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['./file-control-buttons.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FileControlButtonsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class FileControlButtonsComponent  {
+  @Output() saveFile = new EventEmitter<any>();
+  @Output() clearFile = new EventEmitter<any>();
 }
