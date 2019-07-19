@@ -1,15 +1,16 @@
 <div class="editor-wrapper" #editorWrapper>
-    <div id="{{id}}"></div>
-    <span #textareaWrapper class="text-input">
+  <div id="{{id}}"></div>
+  <span #textareaWrapper class="text-input">
         <div contenteditable="true" class="text-input__field" #textarea></div>
     </span>
 </div>
 <app-paint-editor-toolbar
 
-    [defaultSettings]="defaultToolbarSettings"
-    (toolSelect)="onToolSelect($event)"
-    (fileSelect)="initBackgroundImage($event)"
-    (colorSelect)="onColorSelect($event)"
-    (sizeChange)="onSizeSelect($event)"></app-paint-editor-toolbar>
-<app-file-control-buttons (saveFile)="onSaveFile()"
+  [defaultSettings]="defaultToolbarSettings"
+  (toolSelect)="onToolSelect($event)"
+  (fileSelect)="initBackgroundImage($event)"
+  (colorSelect)="onColorSelect($event)"
+  (sizeChange)="onSizeSelect($event)"></app-paint-editor-toolbar>
+<app-file-control-buttons [ngStyle]="{'right': showFileManageBtns ? '0' : '-60px'}"
+                          (saveFile)="onSaveFile()"
                           (clearFile)="onClearFile()"></app-file-control-buttons>

@@ -1,4 +1,14 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, OnDestroy, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnDestroy,
+  ViewChild
+} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import * as Konva from 'konva';
 import {Layer} from 'konva/types/Layer';
@@ -17,8 +27,8 @@ interface ImgParams {
   y: number;
 }
 
+const defaultFileName = 'awesomePaintedPic';
 const fontStyle = '20px Arial';
-
 const initialStep = -1;
 
 @Component({
@@ -45,6 +55,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     lineWidth: 10
   };
   public isDisabled = false;
+  public showFileManageBtns = false;
   private konva = Konva as any;
   private canvas: HTMLCanvasElement;
   private canvasSize: { width: number, height: number };
@@ -62,7 +73,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
   private serviceLayer: Layer;
   private backgroundLayer: Layer;
 
-  constructor(private windowDocumentRef: WindowDocumentRef) {
+  constructor(private windowDocumentRef: WindowDocumentRef, private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngAfterViewInit() {
@@ -92,13 +103,15 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
   public onSaveFile() {
     const link = this.windowDocumentRef.nativeDocument.createElement('a');
     link.href = this.stage.toDataURL();
-    link.download = 'fileName';
+    link.download = defaultFileName;
     link.click();
   }
 
   public onClearFile() {
     this.backgroundLayer.destroyChildren();
     this.backgroundLayer.clear();
+    this.switchFileManageBtns(false);
+    this.clearBoard();
   }
 
   public initBackgroundImage(base64Img: string) {
@@ -116,6 +129,18 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
       this.backgroundLayer.add(bgImg);
       this.backgroundLayer.draw();
     };
+
+    this.switchFileManageBtns(true);
+  }
+
+  public onColorSelect(color: string) {
+    this.context.strokeStyle = color;
+    this.serviceContext.strokeStyle = color;
+  }
+
+  public onSizeSelect(size: number) {
+    this.context.lineWidth = size;
+    this.serviceContext.lineWidth = size;
   }
 
   writeValue(value: string) {
@@ -141,16 +166,6 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   private onTouched: (value: string) => void = (value: string) => {
-  }
-
-  public onColorSelect(color: string) {
-    this.context.strokeStyle = color;
-    this.serviceContext.strokeStyle = color;
-  }
-
-  public onSizeSelect(size: number) {
-    this.context.lineWidth = size;
-    this.serviceContext.lineWidth = size;
   }
 
   private initStage(konva: any) {
@@ -312,6 +327,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     }
     const imgData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
     this.stepArray.push(imgData);
+    this.switchFileManageBtns(true);
     this.convertAndWriteValue();
   }
 
@@ -323,10 +339,20 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
       this.convertAndWriteValue();
     } else if (this.step !== initialStep) {
       this.step--;
-      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.paintingLayer.draw();
+      this.clearBoard();
+      this.switchFileManageBtns(false);
       this.convertAndWriteValue();
     }
+  }
+
+  private switchFileManageBtns(show: boolean) {
+    this.showFileManageBtns = show;
+    this.changeDetectorRef.detectChanges();
+  }
+
+  private clearBoard() {
+    this.context.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+    this.paintingLayer.draw();
   }
 
   private drawShape(x: number, y: number, ctx: CanvasRenderingContext2D) {
