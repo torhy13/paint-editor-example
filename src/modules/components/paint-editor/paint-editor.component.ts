@@ -301,8 +301,10 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     if (el.innerHTML.length) {
       this.applyText();
       this.pushStep();
-      this.isTextEditing = false;
+    } else {
+      this.closeTextArea();
     }
+    this.isTextEditing = false;
   }
 
   private freeDrawLine() {
@@ -395,7 +397,7 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
 
   private applyText() {
     const text = this.textarea.nativeElement.innerHTML;
-    this.textareaWrapper.nativeElement.style.display = 'none';
+    this.closeTextArea();
     this.context.font = fontStyle;
     this.context.textAlign = 'start';
     this.context.textBaseline = 'top';
@@ -405,6 +407,10 @@ export class PaintEditorComponent implements AfterViewInit, OnDestroy {
     const maxWidth = this.stage.getClientRect({}).width - this.lastPointerPosition.x;
     this.formatText(this.context, text, this.lastPointerPosition.x, this.lastPointerPosition.y, maxWidth, lineHeight);
     this.paintingLayer.draw();
+  }
+
+  private closeTextArea() {
+    this.textareaWrapper.nativeElement.style.display = 'none';
   }
 
   private formatText(ctx: CanvasRenderingContext2D, text: string, marginLeft: number, marginTop: number,
